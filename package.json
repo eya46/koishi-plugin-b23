@@ -1,7 +1,24 @@
 {
   "name": "koishi-plugin-b23",
   "description": "获取B站热搜",
-  "version": "0.0.1",
+  "contributors": [
+    "eya46 <61458340+eya46@users.noreply.github.com>"
+  ],
+  "version": "0.1.0",
+  "homepage": "https://github.com/eya46/koishi-plugin-b23",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eya46/koishi-plugin-b23.git"
+  },
+  "koishi": {
+    "browser": true,
+    "description": {
+      "zh": "获取B站热搜"
+    },
+    "locales": [
+      "zh"
+    ]
+  },
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -9,14 +26,13 @@
     "dist"
   ],
   "license": "MIT",
-  "scripts": {},
   "keywords": [
     "chatbot",
     "koishi",
-    "plugin"
+    "plugin",
+    "bilibili"
   ],
-  "devDependencies": {},
   "peerDependencies": {
-    "koishi": "^4.17.0-alpha.0"
+    "koishi": "^4.16.8"
   }
 }
