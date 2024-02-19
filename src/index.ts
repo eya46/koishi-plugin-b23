@@ -1,4 +1,4 @@
-import { Context, Schema, Logger } from 'koishi';
+import { Context, Schema } from 'koishi';
 
 export const name = 'b23';
 
@@ -37,8 +37,7 @@ export function apply(ctx: Context, config: Config) {
       }
 
       try {
-        const resp = await fetch(`${config.api}?limit=${targetNum}`);
-        const data = await resp.json();
+        const data = await ctx.http.get(`${config.api}?limit=${targetNum}`);
         const msgs = ['B站热搜'];
         const list = data?.data?.list || [];
         for (let i = 0; i < list.length; i++) {
