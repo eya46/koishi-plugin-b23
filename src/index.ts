@@ -1,4 +1,4 @@
-import { Context, Schema } from 'koishi';
+import {Context, Schema} from 'koishi';
 
 export const name = 'b23';
 
@@ -6,6 +6,7 @@ export interface Config {
   defaultNum: number;
   maxNum: number;
   api: string;
+  userAgent: string;
 }
 
 export const Config: Schema<Config> = Schema.object({
@@ -18,6 +19,7 @@ export const Config: Schema<Config> = Schema.object({
         : 'https://app.bilibili.com/x/v2/search/trending/ranking'
     )
     .description('api地址'),
+  userAgent: Schema.string().default('Chrome/130.0.0.0').description('User-Agent'),
 });
 
 export function apply(ctx: Context, config: Config) {
@@ -25,7 +27,7 @@ export function apply(ctx: Context, config: Config) {
     .command('b23 [num:number]', '获取B站热搜')
     .alias('B站热搜')
     .action(async (_, num?) => {
-      let targetNum;
+      let targetNum: number;
       if (num === undefined) {
         targetNum = config.defaultNum;
       } else if (parseInt(num + '') !== num) {
@@ -37,7 +39,11 @@ export function apply(ctx: Context, config: Config) {
       }
 
       try {
-        const data = await ctx.http.get(`${config.api}?limit=${targetNum}`);
+        const data = await ctx.http.get(`${config.api}?limit=${targetNum}`, {
+          headers: {
+            "User-Agent": config.userAgent,
+          }
+        });
         const msgs = ['B站热搜'];
         const list = data?.data?.list || [];
         for (let i = 0; i < list.length; i++) {
